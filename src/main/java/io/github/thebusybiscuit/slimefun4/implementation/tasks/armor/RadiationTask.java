@@ -2,6 +2,7 @@ package io.github.thebusybiscuit.slimefun4.implementation.tasks.armor;
 
 import io.github.bakedlibs.dough.common.ChatColors;
 import io.github.thebusybiscuit.slimefun4.api.events.AsyncPlayerRadiationLevelUpdateEvent;
+import io.github.thebusybiscuit.slimefun4.api.events.RadiationDamageEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile;
 import io.github.thebusybiscuit.slimefun4.core.attributes.ProtectionType;
@@ -77,6 +78,13 @@ public class RadiationTask extends AbstractArmorTask {
             int exposureLevelAfter = RadiationUtils.getExposure(p);
 
             Slimefun.runSync(() -> {
+                RadiationDamageEvent event = new RadiationDamageEvent(p, exposureLevelAfter);
+                Bukkit.getPluginManager().callEvent(event);
+
+                if (event.isCancelled()) {
+                    return;
+                }
+
                 for (RadiationSymptom symptom : symptoms) {
                     if (symptom.shouldApply(exposureLevelAfter)) {
                         symptom.apply(p);

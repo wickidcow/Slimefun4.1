@@ -3985,7 +3985,7 @@ public final class SlimefunItemSetup {
 
         new BirthdayCake(
                         itemGroups.birthday,
-                        new SlimefunItemStack("BIRTHDAY_CAKE", Material.CAKE, "&b生日蛋糕"),
+                        new SlimefunItemStack("BIRTHDAY_CAKE", Material.CAKE, "&bBirthday Cake"),
                         RecipeType.ENHANCED_CRAFTING_TABLE,
                         new ItemStack[] {
                             null,
@@ -7796,7 +7796,7 @@ public final class SlimefunItemSetup {
                             null,
                             null,
                             null,
-                            new CustomItemStack(HeadTexture.PIGLIN_HEAD.getAsItemStack(), "&f与猪灵交易"),
+                            new CustomItemStack(HeadTexture.PIGLIN_HEAD.getAsItemStack(), "&fPiglin"),
                             null,
                             null,
                             null,
