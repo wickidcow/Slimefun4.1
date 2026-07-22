@@ -37,7 +37,7 @@ public class PortableDustbin extends SimpleSlimefunItem<ItemUseHandler> implemen
             e.cancel();
 
             Player p = e.getPlayer();
-            var dustbin = Bukkit.createInventory(null, 9 * 3, ChatColor.DARK_RED + "便携垃圾桶");
+            var dustbin = Bukkit.createInventory(null, 9 * 3, ChatColor.DARK_RED + "Portable Dustbin");
             InventoryUtil.openInventory(p, dustbin);
             SoundEffect.PORTABLE_DUSTBIN_OPEN_SOUND.playFor(p);
         };
