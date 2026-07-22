@@ -151,7 +151,7 @@ public class ItemSetting<T> {
      * @return An error message which is displayed when this {@link ItemSetting} is misconfigured.
      */
     protected @Nonnull String getErrorMessage() {
-        return "请使用在 '" + defaultValue.getClass().getSimpleName() + "' 范围内的值!";
+        return "Please use a value within the '" + defaultValue.getClass().getSimpleName() + "' range!";
     }
 
     /**
@@ -175,15 +175,15 @@ public class ItemSetting<T> {
                 this.value = newValue;
             } else {
                 // @formatter:off
-                item.warn("发现在 Items.yml 中有无效的物品设置!"
-                        + "\n  在 \""
+                item.warn("Found an invalid item setting in Items.yml!"
+                        + "\n  At \""
                         + item.getId()
                         + "."
                         + getKey()
                         + "\""
                         + "\n  "
                         + configuredValue
-                        + " 不是一个有效值!"
+                        + " is not a valid value!"
                         + "\n"
                         + getErrorMessage());
                 // @formatter:on
@@ -195,16 +195,16 @@ public class ItemSetting<T> {
                     : configuredValue.getClass().getSimpleName();
 
             // @formatter:off
-            item.warn("发现在 Items.yml 中有无效的物品设置!"
-                    + "\n请只设置有效的值."
-                    + "\n  在 \""
+            item.warn("Found an invalid item setting in Items.yml!"
+                    + "\nPlease only set valid values."
+                    + "\n  At \""
                     + item.getId()
                     + "."
                     + getKey()
                     + "\""
-                    + "\n  期望值为 \""
+                    + "\n  Expected value is \""
                     + defaultValue.getClass().getSimpleName()
-                    + "\" 但填写了: \""
+                    + "\" but got: \""
                     + found
                     + "\"");
             // @formatter:on

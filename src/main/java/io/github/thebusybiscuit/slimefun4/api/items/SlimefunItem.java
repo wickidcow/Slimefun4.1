@@ -937,7 +937,7 @@ public class SlimefunItem implements Placeable {
         Validate.notNull(page, "Wiki page cannot be null.");
 
         if (addon == null) {
-            Slimefun.logger().warning("该物品\"" + getId() + "\"暂未注册, 请在物品注册后再添加Wiki页面");
+            Slimefun.logger().warning("The item \"" + getId() + "\" is not registered yet. Add wiki pages only after registration.");
             return;
         }
         if (addon.getWikiURL() != null) {
