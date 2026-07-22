@@ -133,7 +133,7 @@ public abstract class SqlCommonAdapter<T extends ISqlCommonConfig> implements ID
         DatabasePatch patch = null;
         var dbVer = getDatabaseVersion();
 
-        Slimefun.logger().log(Level.INFO, "当前数据库版本 {0}", new Object[] {dbVer});
+        Slimefun.logger().log(Level.INFO, "Current database version {0}", new Object[] {dbVer});
 
         switch (dbVer) {
             case 0 -> patch = new DatabasePatchV1();
@@ -145,17 +145,17 @@ public abstract class SqlCommonAdapter<T extends ISqlCommonConfig> implements ID
         }
 
         try (var conn = ds.getConnection()) {
-            Slimefun.logger().log(Level.INFO, "正在更新数据库版本至 " + patch.getVersion() + ", 可能需要一段时间...");
+            Slimefun.logger().log(Level.INFO, "Updating database version to " + patch.getVersion() + ". This may take a moment...");
             var stmt = conn.createStatement();
             patch.updateVersion(stmt, config);
             patch.patch(stmt, config);
-            Slimefun.logger().log(Level.INFO, "更新完成. ");
+            Slimefun.logger().log(Level.INFO, "Update completed.");
 
             if (getDatabaseVersion() != IDataSourceAdapter.DATABASE_VERSION) {
                 patch();
             }
         } catch (SQLException e) {
-            Slimefun.logger().log(Level.SEVERE, "更新数据库时出现问题!", e);
+            Slimefun.logger().log(Level.SEVERE, "An issue occurred while updating the database!", e);
         }
     }
 }

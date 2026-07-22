@@ -23,12 +23,12 @@ class EnvironmentChecker {
         printBorder(logger);
         logger.log(Level.WARNING, "");
         logger.log(Level.WARNING, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        logger.log(Level.WARNING, "检测到不兼容的插件, 已自动禁用 Slimefun!");
-        logger.log(Level.WARNING, "不兼容插件列表: ", String.join(", ", plugins));
-        logger.log(Level.WARNING, "这些插件出现在这里是因为它们已不兼容现有");
-        logger.log(Level.WARNING, "Slimefun 版本或是与 Slimefun 冲突.");
-        logger.log(Level.WARNING, "如果你觉得这些插件能够与 Slimefun 并存,");
-        logger.log(Level.WARNING, "请联系我们修改.");
+        logger.log(Level.WARNING, "Incompatible plugins detected, Slimefun has been automatically disabled!");
+        logger.log(Level.WARNING, "Incompatible plugin list: ", String.join(", ", plugins));
+        logger.log(Level.WARNING, "These plugins appear here because they are incompatible with");
+        logger.log(Level.WARNING, "the current Slimefun version or conflict with Slimefun.");
+        logger.log(Level.WARNING, "If you believe these plugins can coexist with Slimefun,");
+        logger.log(Level.WARNING, "please contact us to update the check.");
         logger.log(Level.WARNING, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         logger.log(Level.WARNING, "");
         printBorder(logger);
@@ -79,8 +79,8 @@ class EnvironmentChecker {
                         sf,
                         () -> {
                             if (Bukkit.getPluginManager().getPlugin("SlimeGlue") == null) {
-                                sf.getLogger().log(Level.WARNING, "检测到没有安装 SlimeGlue (粘液胶), 你将缺失对一些插件的额外保护检查!");
-                                sf.getLogger().log(Level.WARNING, "下载: https://github.com/Xzavier0722/SlimeGlue");
+                                sf.getLogger().log(Level.WARNING, "SlimeGlue (slime adhesive) is not installed, you will lack additional protection checks for some plugins!");
+                                sf.getLogger().log(Level.WARNING, "Download: https://github.com/Xzavier0722/SlimeGlue");
                             }
                         },
                         300); // 15s

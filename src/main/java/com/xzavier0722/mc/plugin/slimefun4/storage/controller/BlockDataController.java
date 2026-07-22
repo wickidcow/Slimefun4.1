@@ -860,7 +860,7 @@ public class BlockDataController extends ADataController {
     public void loadWorld(World world) {
         var start = System.currentTimeMillis();
         var worldName = world.getName();
-        logger.log(Level.INFO, "正在加载世界 {0} 的 Slimefun 方块数据...", worldName);
+        logger.log(Level.INFO, "Loading Slimefun block data for world {0}...", worldName);
         var chunkKeys = new HashSet<String>();
         var key = new RecordKey(DataScope.CHUNK_DATA);
         key.addField(FieldKey.CHUNK);
@@ -874,7 +874,7 @@ public class BlockDataController extends ADataController {
 
         chunkKeys.forEach(cKey -> loadChunk(LocationUtils.toChunk(world, cKey), false, true));
         logger.log(
-                Level.INFO, "世界 {0} 数据加载完成, 耗时 {1}ms", new Object[] {worldName, (System.currentTimeMillis() - start)});
+                Level.INFO, "World {0} data loaded in {1}ms", new Object[] {worldName, (System.currentTimeMillis() - start)});
     }
 
     public void loadUniversalRecord() {
@@ -997,7 +997,7 @@ public class BlockDataController extends ADataController {
                             Slimefun.logger()
                                     .log(
                                             Level.SEVERE,
-                                            "加载目标物品失败, 请检查实际数据 ["
+                                            "Failed to load the target item; check the stored data ["
                                                     + LocationUtils.locationToString(blockData.getLocation()) + ":"
                                                     + slot + "]",
                                             ex);
@@ -1113,7 +1113,7 @@ public class BlockDataController extends ADataController {
                         } catch (Exception ex) {
                             inv[slot] = null;
                             Slimefun.logger()
-                                    .log(Level.SEVERE, "加载目标物品失败, 请检查实际数据 [" + uniData.getKey() + ":" + slot + "]", ex);
+                                    .log(Level.SEVERE, "Failed to load the target item; check the stored data [" + uniData.getKey() + ":" + slot + "]", ex);
                         }
                     }
 
@@ -1613,7 +1613,7 @@ public class BlockDataController extends ADataController {
                         Slimefun.logger()
                                 .log(
                                         Level.SEVERE,
-                                        "加载目标物品失败, 请检查实际数据 [" + universalData.getKey() + ":" + slot + "]",
+                                        "Failed to load the target item; check the stored data [" + universalData.getKey() + ":" + slot + "]",
                                         ex);
                     }
                 }
@@ -1633,7 +1633,7 @@ public class BlockDataController extends ADataController {
                         .enableTicker(universalData.getLastPresent().toLocation(), universalData.getUUID());
             }
         } catch (Exception e) {
-            Slimefun.logger().log(Level.WARNING, "迁移机器人数据时出现错误", e);
+            Slimefun.logger().log(Level.WARNING, "An error occurred while migrating machine data", e);
         }
     }
 }

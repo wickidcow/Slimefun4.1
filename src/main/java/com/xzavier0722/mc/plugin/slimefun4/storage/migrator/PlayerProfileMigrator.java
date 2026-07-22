@@ -68,7 +68,7 @@ public class PlayerProfileMigrator implements IMigrator {
                 var p = Bukkit.getOfflinePlayer(uuid);
 
                 if (!p.hasPlayedBefore()) {
-                    Slimefun.logger().log(Level.INFO, "检测到从未加入服务器玩家的数据, 已自动跳过: " + uuid);
+                    Slimefun.logger().log(Level.INFO, "Detected data for a player who has never joined the server; skipping: " + uuid);
                     total--;
                     continue;
                 }
@@ -76,22 +76,22 @@ public class PlayerProfileMigrator implements IMigrator {
                 migratePlayerProfile(p);
 
                 migratedCount++;
-                Slimefun.logger().log(Level.INFO, "成功迁移玩家数据: " + p.getName() + "(" + migratedCount + "/" + total + ")");
+                Slimefun.logger().log(Level.INFO, "Successfully migrated player data: " + p.getName() + "(" + migratedCount + "/" + total + ")");
             } catch (IllegalArgumentException ignored) {
                 result = MigrateStatus.FAILED;
-                Slimefun.logger().log(Level.WARNING, "检测到不合法命名的玩家数据文件: '" + file.getName() + "'");
+                Slimefun.logger().log(Level.WARNING, "Detected improperly named player data file: '" + file.getName() + "'");
                 // illegal player name, skip
             }
         }
 
         if (MigratorUtil.createDirBackup(playerFolder)) {
             Slimefun.logger()
-                    .log(Level.INFO, "成功迁移 {0} 个玩家数据! 迁移前的数据已储存在 ./data-storage/Slimefun/old_data 下", migratedCount);
+                    .log(Level.INFO, "Successfully migrated {0} player data files! Original data stored in ./data-storage/Slimefun/old_data.", migratedCount);
             try {
                 Files.deleteIfExists(playerFolder.toPath());
             } catch (IOException e) {
                 result = MigrateStatus.FAILED;
-                Slimefun.logger().log(Level.WARNING, "删除旧玩家数据文件夹失败, 请手动删除", e);
+                Slimefun.logger().log(Level.WARNING, "Failed to delete old player data directory; please remove it manually.", e);
             }
         }
 

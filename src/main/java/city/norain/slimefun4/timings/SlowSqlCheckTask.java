@@ -22,7 +22,7 @@ public class SlowSqlCheckTask implements Runnable {
             long elapsedTime = System.currentTimeMillis() - startTime;
 
             if (elapsedTime > 5000) {
-                Slimefun.logger().log(Level.WARNING, "检测到慢 SQL: {0}", entry.normalize());
+                Slimefun.logger().log(Level.WARNING, "Detected slow SQL: {0}", entry.normalize());
                 break;
             }
         }
