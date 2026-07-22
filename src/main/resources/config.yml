@@ -1,24 +1,9 @@
-# options:
-#    auto-update - Github 新版本自动检查并更新
-#    armor-update-interval - 粘液科技护甲效果更新周期
-#    enable-armor-effects - 护甲效果的开关
-#    chat-prefix - 粘液科技所有消息的前缀
-#    auto-save-delay-in-minutes - 自动保存数据的周期, 单位为分钟
-#    legacy-ore-washer - 是否使用旧版的洗矿机机制
-#    legacy-dust-washer - 是否使用旧版的除尘机机制
-#    legacy-ore-grinder - 是否使用旧版的碎矿机机制
-#    language - 粘液科技文本语言 (不包括物品)
-#    enable-translations - 多语言功能
-#    backwards-compatibility - 物品向后兼容模式, 关闭后物品会使用新版物品系统
-#                             将会提升性能
-#    log-duplicate-block-entries - 是否输出发现重复方块的警告
-#    burn-players-when-radioactive - 是否在当玩家暴露在辐射中时灼烧玩家
-#    drop-excess-sf-give-items - 是否在背包已满时使用命令给予 Slimefun 物品直接掉落溢出的物品
-#    backup-data - 自动备份数据
-#    bypass-environment-check - 跳过兼容性检查 (注意: 打开后将不予接受问题反馈)
+# Albion English defaults.
+# The in-plugin auto-updater is disabled because it would replace this English
+# fork with an untranslated upstream build. Use the included GitHub sync workflow instead.
 options:
-  auto-update: true
-  chat-prefix: '&a&lSlimefun 4 &7> '
+  auto-update: false
+  chat-prefix: '&a&lSlimefun &7> '
   armor-update-interval: 10
   enable-armor-effects: true
   enable-radiation: true
@@ -29,8 +14,9 @@ options:
   legacy-ore-washer: false
   legacy-dust-washer: false
   legacy-ore-grinder: true
-  language: zh-CN
-  enable-translations: true
+  # Force all players to use the server's English language.
+  language: en
+  enable-translations: false
   log-duplicate-block-entries: true
   burn-players-when-radioactive: true
   drop-excess-sf-give-items: false
@@ -41,23 +27,23 @@ options:
   max-gps-waypoints: 21
 
 guide:
-  # 是否在指南中展示原版物品合成配方
+  # Show vanilla recipes in the Slimefun guide.
   show-vanilla-recipes: true
-  # 是否在玩家第一次进入服务器时自动赠送粘液科技指南
+  # Give the guide when a player joins for the first time.
   receive-on-first-join: true
-  # 是否在搜索中显示隐藏物品
+  # Include hidden groups in guide search results.
   show-hidden-item-groups-in-search: false
 
 researches:
-  # 是否允许创造模式玩家免费解锁研究
+  # Creative players can unlock researches without paying.
   free-in-creative-mode: true
-  # 是否在解锁时燃放烟花
+  # Display fireworks when a research is unlocked.
   enable-fireworks: true
-  # 是否使用游戏币替代使用经验解锁
+  # Use Vault currency instead of experience levels.
   use-money-unlock: false
-  # 经验自动转换到游戏币倍率
+  # Experience-level to currency conversion rate.
   currency-cost-convert-rate: 25.0
-  # 是否禁用解锁研究时的动画
+  # Skip the research-learning animation.
   disable-learning-animation: false
 
 URID:
@@ -78,45 +64,45 @@ metrics:
   auto-update: false
 
 backpack:
-  # 背包所有者离线时是否允许背包被打开
+  # Allow a backpack to open while its owner is offline.
   allow-open-when-owner-offline: true
 
 research-ranks:
-  - 小鸡
-  - 牛牛君
-  - 蜘蛛
-  - 村民
-  - 开拓者
-  - 童生
-  - 实习生
-  - 不合格生
-  - 学生
-  - 笨拙学徒
-  - 学徒
-  - 熟练学徒
-  - 法师学徒
-  - 杰出法师
-  - 年轻魔术师
-  - 笨拙魔术师
-  - 普通魔术师
-  - 魔术师
-  - 熟练魔术师
-  - 特技魔术师
-  - 惯用魔术师
-  - 杰出魔术师
-  - 笨拙巫师
-  - 巫师
-  - 普通巫师 
-  - 特技巫师
-  - 杰出巫师
-  - 卓越巫师
-  - 年轻大师
-  - 笨拙大师
-  - 实习大师
-  - 合格大师
-  - 大师
-  - 特技大师
-  - 杰出大师
-  - 卓越大师
-  - 精通大师
-  - 天选之子
+  - Chicken
+  - Cow
+  - Spider
+  - Villager
+  - Beginner
+  - Clumsy Student
+  - Unskilled Student
+  - Incompetent Student
+  - Student
+  - Clumsy Apprentice
+  - Apprentice
+  - Skilled Apprentice
+  - Upcoming Mage
+  - Excellent Mage
+  - Young Magician
+  - Incompetent Magician
+  - Common Magician
+  - Magician
+  - Proficient Magician
+  - Skilled Magician
+  - Accustomed Magician
+  - Great Magician
+  - Clumsy Wizard
+  - Wizard
+  - Common Wizard
+  - Skilled Wizard
+  - Great Wizard
+  - Impressive Wizard
+  - Young Master
+  - Clumsy Master
+  - Upcoming Master
+  - Competent Master
+  - Master
+  - Skilled Master
+  - Excellent Master
+  - Great Master
+  - Proficient Master
+  - The Chosen One

@@ -1,69 +1,69 @@
 #########################################################################
-# 数据库类型, 可选的有 SQLITE, MYSQL, POSTGRESQL
-# 注意: 在切换数据库类型时, 我们并不会自动帮你迁移数据 :)
-# 注意: 当使用MYSQL跨服时，请务必将 config.yml 中的 allow-open-when-owner-offline 设置为 false
-#      以防止玩家在不同服务器打开同一个背包刷物品。
+# Database type, optional values include SQLITE, MYSQL, POSTGRESQL
+# Note: When switching database types, we will not automatically migrate your data for you :)
+# Note: When using MYSQL across servers, please be sure to set allow-open-when-owner-offline in config.yml to false
+#      to prevent players from opening the same backpack on different servers and duplicating items.
 storageType: SQLITE
 
-# 使用Base64编码数据字段
+# Use Base64 encoding for data fields
 base64EncodeVal: true
 #########################################################################
 
 #########################################################################
-# 数据库读写线程数
-# 当使用MYSQL时，建议 最大连接数 = 读取 + 写入线程数，且读取线程数量应当大于写入线程。
-# 注意: 线程数并非越多越好，过多反而会导致性能下降。请分配合适的数量。
+# Number of database read/write threads
+# When using MYSQL, it is recommended that max connections = read + write threads, and read threads should be greater than write threads.
+# Note: More threads do not always mean better performance; too many can actually cause performance degradation. Please allocate an appropriate number.
 
-# 读取线程数
+# Number of read threads
 readExecutorThread: 7
-# 写入线程数
+# Number of write threads
 writeExecutorThread: 3
 #########################################################################
 
 #########################################################################
-# Sqlite 配置
+# Sqlite configuration
 sqlite:
   maxConnection: 5
 #########################################################################
 
 #########################################################################
-# MySQL 配置
+# MySQL configuration
 mysql:
-  # 数据库连接地址
+  # Database connection address
   host: "127.0.0.1"
-  # 数据库连接端口
+  # Database connection port
   port: 3306
-  # 数据库名
+  # Database name
   database: ""
-  # 表前缀
+  # Table prefix
   tablePrefix: ""
-  # 连接用户名
+  # Connection username
   user: ""
-  # 连接用户密码
+  # Connection user password
   password: ""
-  # 是否使用加密连接
+  # Whether to use encrypted connection
   useSSL: false
-  # 最大连接数
+  # Maximum connections
   maxConnection: 10
 #########################################################################
 
 #########################################################################
-# PostgreSQL 配置
+# PostgreSQL configuration
 postgresql:
-  # 数据库连接地址
+  # Database connection address
   host: "127.0.0.1"
-  # 数据库连接端口
+  # Database connection port
   port: 3306
-  # 数据库名
+  # Database name
   database: ""
-  # 表前缀
+  # Table prefix
   tablePrefix: ""
-  # 连接用户名
+  # Connection username
   user: ""
-  # 连接用户密码
+  # Connection user password
   password: ""
-  # 是否使用加密连接
+  # Whether to use encrypted connection
   useSSL: false
-  # 最大连接数
+  # Maximum connections
   maxConnection: 10
 #########################################################################

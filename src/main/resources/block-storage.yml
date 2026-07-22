@@ -1,89 +1,91 @@
 #########################################################################
-# 数据库类型, 可选的有 SQLITE, MYSQL, POSTGRESQL
-# 注意: 在切换数据库类型时, 我们并不会自动帮你迁移数据 :)
+# Database type, optional values include SQLITE, MYSQL, POSTGRESQL
+# Note: When switching database types, we will **not** automatically migrate your data :)
 storageType: SQLITE
 
-# 使用Base64编码数据字段
+# Use Base64 encoding for data fields
 base64EncodeVal: true
 
-# 区块数据加载模式
-# 可选的有:
-# - LOAD_WITH_CHUNK: 当本次开服期间内区块首次加载时加载粘液区块数据
-# - LOAD_ON_STARTUP: 当开服时一次性加载全部区块数据，可能会导致开服时间较长
-# 默认情况下推荐使用 LOAD_WITH_CHUNK 以节省不必要的内存开销
-# 如发现加载区块时发生明显卡顿，请更改为 LOAD_ON_STARTUP
+# Chunk data loading mode
+# Available options:
+# - LOAD_WITH_CHUNK: Load Slime chunk data when a chunk is first loaded during this server session
+# - LOAD_ON_STARTUP: Load all chunk data at once when the server starts (may cause longer startup time)
+# By default, **LOAD_WITH_CHUNK** is recommended to save unnecessary memory usage
+# If you experience noticeable lag when loading chunks, switch to **LOAD_ON_STARTUP**
 dataLoadMode: LOAD_WITH_CHUNK
 #########################################################################
 
 #########################################################################
-# 数据库读写线程数
-# 当使用 MySQL 时，建议将最大连接数设置为 读取 + 写入线程数，且读取线程数量应当大于写入线程。
-# 注意: 线程数并非越多越好，过多反而会导致性能下降。请分配合适的数量。
+# Database read/write thread count
+# When using MySQL, it is recommended to set **max connections = read + write threads**,
+# and **read threads should be greater than write threads**.
+# Note: More threads ≠ better performance. Too many can degrade performance. Allocate appropriately.
 
-# 读取线程数
+# Number of read threads
 readExecutorThread: 10
-# 写入线程数
+# Number of write threads
 writeExecutorThread: 5
 #########################################################################
 
 #########################################################################
-# 延迟写入功能
-# 本功能用于防止某些数据被频繁写入导致队列中存在大量无意义的写入请求。
-# 启用本功能后，当数据发生更改后会等待 (delayedSecond) 秒，如无其它改动再写入数据库。
-# 强制保存时会将等待中的数据直接加入写入队列。
+# Delayed writing feature
+# This feature prevents excessive meaningless write requests caused by frequent data updates.
+# When enabled, after data changes, it waits for **delayedSecond** seconds before writing to the database
+# if no further changes occur.
+# Forced saves will immediately push pending data into the write queue.
 delayedWriting:
-  # 是否启用延迟写入
+  # Whether to enable delayed writing
   enable: true
-  # 延迟写入秒数
+  # Delay in seconds before writing
   delayedSecond: 5
-  # 强制保存间隔（单位：秒）
+  # Forced save interval (in seconds)
   forceSavePeriod: 300
 #########################################################################
 
 #########################################################################
-# Sqlite 配置
+# Sqlite configuration
 sqlite:
   maxConnection: 5
 #########################################################################
 
 #########################################################################
-# MySQL 配置
+# MySQL configuration
 mysql:
-  # 数据库连接地址
+  # Database host address
   host: "127.0.0.1"
-  # 数据库连接端口
+  # Database port
   port: 3306
-  # 数据库名
+  # Database name
   database: ""
-  # 表前缀
+  # Table prefix
   tablePrefix: ""
-  # 连接用户名
+  # Username for connection
   user: ""
-  # 连接用户密码
+  # Password for connection
   password: ""
-  # 是否使用加密连接
+  # Use SSL encrypted connection
   useSSL: false
-  # 最大连接数
+  # Maximum connection pool size
   maxConnection: 15
 #########################################################################
 
 #########################################################################
-# PostgreSQL 配置
+# PostgreSQL configuration
 postgresql:
-  # 数据库连接地址
+  # Database host address
   host: "127.0.0.1"
-  # 数据库连接端口
+  # Database port
   port: 3306
-  # 数据库名
+  # Database name
   database: ""
-  # 表前缀
+  # Table prefix
   tablePrefix: ""
-  # 连接用户名
+  # Username for connection
   user: ""
-  # 连接用户密码
+  # Password for connection
   password: ""
-  # 是否使用加密连接
+  # Use SSL encrypted connection
   useSSL: false
-  # 最大连接数
+  # Maximum connection pool size
   maxConnection: 15
 #########################################################################
