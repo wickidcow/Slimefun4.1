@@ -26,5 +26,5 @@ public final class PatternUtils {
     public static final Pattern MINECRAFT_TAG = Pattern.compile("#minecraft:[a-z_]+");
     public static final Pattern SLIMEFUN_TAG = Pattern.compile("#slimefun:[a-z_]+");
 
-    public static final Pattern USES_LEFT_LORE = Pattern.compile(ChatColors.color("&7还可以使用 &e[0-9]+ 次"));
+    public static final Pattern USES_LEFT_LORE = Pattern.compile(ChatColors.color("&7Uses left: &e[0-9]+"));
 }

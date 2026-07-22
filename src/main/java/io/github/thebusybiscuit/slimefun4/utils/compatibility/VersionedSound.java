@@ -36,7 +36,7 @@ public final class VersionedSound {
             }
             valueOfMethod = Sound.class.getMethod("valueOf", String.class);
         } catch (Exception e) {
-            Slimefun.logger().severe("无法确定 Sound 类型：" + e.getMessage());
+            Slimefun.logger().severe("Unable to determine Sound type: " + e.getMessage());
         }
 
         IS_ENUM = isEnum;
@@ -62,12 +62,12 @@ public final class VersionedSound {
             } else if (GET_KEY_METHOD != null) {
                 Object key = GET_KEY_METHOD.invoke(sound);
                 if (!(key instanceof NamespacedKey nsKey)) {
-                    throw new IllegalStateException("Sound.getKey() 返回的不是 NamespacedKey");
+                    throw new IllegalStateException("Sound.getKey() returned a non-NamespacedKey value");
                 }
                 return nsKey.getKey();
             }
         } catch (Exception e) {
-            Slimefun.logger().severe("获取 Sound 名称失败: " + e.getMessage());
+            Slimefun.logger().severe("Failed to obtain sound name: " + e.getMessage());
         }
 
         // fallback
@@ -83,7 +83,7 @@ public final class VersionedSound {
      */
     @Nonnull
     public static Sound valueOf(@Nonnull String name) throws IllegalArgumentException {
-        Preconditions.checkArgument(name != null, "Sound 名称不能为空");
+        Preconditions.checkArgument(name != null, "Sound name cannot be null");
 
         String enumName = name.toUpperCase(Locale.ROOT).replace('.', '_').replace('-', '_');
         try {
@@ -91,9 +91,9 @@ public final class VersionedSound {
                 return (Sound) VALUE_OF_METHOD.invoke(null, enumName);
             }
         } catch (Exception e) {
-            throw new IllegalArgumentException("无法调用 Sound.valueOf: " + name, e);
+            throw new IllegalArgumentException("Unable to invoke Sound.valueOf for name: " + name, e);
         }
 
-        throw new IllegalArgumentException("Sound.valueOf 方法不可用");
+        throw new IllegalArgumentException("Sound.valueOf method unavailable");
     }
 }
