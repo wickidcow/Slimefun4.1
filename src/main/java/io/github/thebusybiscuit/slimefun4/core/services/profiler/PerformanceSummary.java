@@ -50,17 +50,17 @@ class PerformanceSummary {
 
     public void send(@Nonnull PerformanceInspector sender) {
         sender.sendMessage("");
-        sender.sendMessage(ChatColor.GREEN + "===== Slimefun 性能分析器 =====");
+        sender.sendMessage(ChatColor.GREEN + "===== Slimefun Performance Profiler =====");
         sender.sendMessage(
-                ChatColor.GOLD + "Tick 总用时: " + ChatColor.YELLOW + NumberUtils.getAsMillis(totalElapsedTime));
+                ChatColor.GOLD + "Total tick time: " + ChatColor.YELLOW + NumberUtils.getAsMillis(totalElapsedTime));
         sender.sendMessage(ChatColor.GOLD
-                + "Ticker 运行周期: "
+                + "Ticker runtime: "
                 + ChatColor.YELLOW
                 + NumberUtils.roundDecimalNumber(tickRate / 20.0)
                 + "s ("
                 + tickRate
                 + " ticks)");
-        sender.sendMessage(ChatColor.GOLD + "性能评分: " + getPerformanceRating());
+        sender.sendMessage(ChatColor.GOLD + "Performance rating: " + getPerformanceRating());
         sender.sendMessage("");
 
         summarizeTimings(totalTickedBlocks, "block", sender, items, entry -> {
@@ -75,9 +75,9 @@ class PerformanceSummary {
             String average = NumberUtils.getAsMillis(entry.getValue() / count);
 
             if (sender.getOrderType() == SummaryOrderType.AVERAGE) {
-                return String.format(message, average + " | 总用时: " + time);
+                return String.format(message, average + " | Total: " + time);
             } else {
-                return String.format(message, time + " | 平均用时: " + average);
+                return String.format(message, time + " | Average: " + average);
             }
         });
 
@@ -132,7 +132,7 @@ class PerformanceSummary {
         component.setColor(ChatColor.YELLOW);
 
         if (count > 0) {
-            TextComponent hoverComponent = new TextComponent("  (将鼠标放置到此处获取更多信息)");
+            TextComponent hoverComponent = new TextComponent("  (Hover here for more info)");
             hoverComponent.setColor(ChatColor.GRAY);
             StringBuilder builder = new StringBuilder();
 

@@ -153,6 +153,12 @@ public class LocalizationService extends SlimefunLocalization {
     public Language getLanguage(@Nonnull Player p) {
         Validate.notNull(p, "Player cannot be null!");
 
+        // English-only mode must also ignore a language previously stored on
+        // the player. Hiding the language selector alone is not sufficient.
+        if (!translationsEnabled) {
+            return getDefaultLanguage();
+        }
+
         PersistentDataContainer container = p.getPersistentDataContainer();
         String language = container.get(languageKey, PersistentDataType.STRING);
 

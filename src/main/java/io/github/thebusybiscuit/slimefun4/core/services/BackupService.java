@@ -56,7 +56,7 @@ public class BackupService implements Runnable {
                 try {
                     purgeBackups(backups);
                 } catch (IOException e) {
-                    Slimefun.logger().log(Level.WARNING, "无法删除旧备份文件", e);
+                    Slimefun.logger().log(Level.WARNING, "Unable to delete old backup file", e);
                 }
             }
 
@@ -69,9 +69,9 @@ public class BackupService implements Runnable {
                             createBackup(output);
                         }
 
-                        Slimefun.logger().log(Level.INFO, "已备份 Slimefun 数据至: {0}", file.getName());
+                        Slimefun.logger().log(Level.INFO, "Backed up Slimefun data to: {0}", file.getName());
                     } else {
-                        Slimefun.logger().log(Level.WARNING, "无法创建备份文件: {0}", file.getName());
+                        Slimefun.logger().log(Level.WARNING, "Unable to create backup file: {0}", file.getName());
                     }
                 } catch (IOException x) {
                     Slimefun.logger()
