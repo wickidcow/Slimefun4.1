@@ -1,117 +1,38 @@
-name: Bug 反馈
-description: 反馈 Slimefun 4 使用中遇到的问题和 Bug
-labels:
-  - "🐞 Bug"
-
+name: Bug report
+description: Report a problem in the English-Albion fork
+title: '[Bug]: '
+labels: [bug]
 body:
   - type: markdown
     attributes:
-      value: |
-        感谢你使用 Slimefun 问题反馈系统！
-
-        在反馈前, 请确认
-        - 你已经查看 [最新版本](https://github.com/SlimefunGuguProject/Slimefun4/releases) 是否已修复你所遇到的问题
-        - 你已经搜索了已有的 [问题](https://github.com/SlimefunGuguProject/Slimefun4/issues) 是否发现了相似的问题
-        
-        如果你的反馈含糊不清或不符合模板，将会被我们直接关闭。
-
+      value: Please include the exact server version, full startup log, and reproduction steps.
+  - type: input
+    id: server
+    attributes:
+      label: Paper/server version
+      placeholder: Paper 26.2 build ...
+    validations:
+      required: true
+  - type: input
+    id: build
+    attributes:
+      label: Slimefun build or commit
+    validations:
+      required: true
   - type: textarea
-    id: issue-description
+    id: problem
     attributes:
-      label: 问题描述
-      description: 在此详细描述你遇到的问题
+      label: What happened?
     validations:
       required: true
-
-  - type: dropdown
-    id: reproducibility
-    attributes:
-       label: 问题复现率
-       description: 选择问题发生的概率
-       options:
-         - 无法复现
-         - 低偶发
-         - 高偶发
-         - 必现
-    validations:
-      required: true
-
   - type: textarea
-    id: reproduce
+    id: steps
     attributes:
-      label: 复现步骤
-      description: 简略说明如何让我们复现这个问题
-      placeholder: |
-        简略说明如何让我们复现这个问题
-        可使用 1.  2.  3.  的列表格式，或其他任意恰当的格式
-        如果这个问题不容易复现, 请尽量描述发生当时的情景
+      label: Steps to reproduce
     validations:
       required: true
-
-  - type: dropdown
-    id: server-platform-type
-    attributes:
-      label: 服务端类型
-      description: |
-        选择你正在使用的服务端，如 `Paper`
-        注意：汉化版仓库不对**混合端** (例如 Arclight、CatServer 这类支持插件与 Mod 并存的服务端) 做任何支持，请自己设法解决
-      options:
-        - Paper
-        - Leaves
-        - Purpur
-        - Airplane
-        - Pufferfish
-        - Leaf
-        - Mirai
-        - 其他服务端 (请在 `问题描述` 处详细说明)
-    validations:
-      required: true
-
-  - type: dropdown
-    id: minecraft-version
-    attributes:
-      label: Minecraft 版本
-      options:
-        - 26.2.x
-        - 26.1.x
-        - 1.21.9~1.21.10
-        - 1.21.7~1.21.8
-        - 1.21.6
-        - 1.21.5
-        - 1.21.4
-        - 1.21.2~1.21.3
-        - 1.21~1.21.1
-        - 1.20.x
-        - 1.19.x
-        - 1.18.x
-        - 1.17.x
-        - 1.16.x
-        - 1.15.x
-        - 1.14.x
-    validations:
-      required: true
-
   - type: textarea
-    id: slimefun-version
-    validations:
-      required: true
+    id: logs
     attributes:
-      label: Slimefun 版本
-      description: |
-        **不要填写 "最新版本"，否则你的反馈会被立即关闭**
-        请你截图或复制执行命令 "/sf versions" 后的输出内容。
-      placeholder: Slimefun 2025.1
-
-  - type: textarea
-    id: other-plugin
-    attributes:
-      label: 服务端插件列表
-      description: 提供你的服务器插件列表，你可以通过执行命令 /plugins 获取。
-      placeholder: |
-        插件: 版本
-
-  - type: textarea
-    id: additional
-    attributes:
-      label: 补充信息
-      description: 如有必要，你可以在下文继续添加其他信息
+      label: Relevant logs
+      render: shell

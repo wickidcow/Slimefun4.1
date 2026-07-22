@@ -1,0 +1,59 @@
+name: Sync Gugu Upstream
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out English fork
+        uses: actions/checkout@v6
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Download, patch, and verify upstream
+        run: |
+          chmod +x gradlew scripts/sync_upstream.sh
+          scripts/sync_upstream.sh '' "$RUNNER_TEMP/slimefun-staged"
+
+      - name: Replace tracked upstream files
+        run: |
+          rsync -a --delete \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude 'scripts/' \
+            --exclude 'patches/' \
+            --exclude 'README.md' \
+            --exclude 'CONTRIBUTING.md' \
+            --exclude 'ALBION_MERGE_NOTES.md' \
+            "$RUNNER_TEMP/slimefun-staged/" ./
+          chmod +x gradlew scripts/sync_upstream.sh scripts/regenerate_patch.sh
+          python3 scripts/verify_english.py .
+
+      - name: Build merged source
+        run: ./gradlew clean build --no-daemon
+
+      - name: Open or update upstream sync pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: automation/gugu-upstream-sync
+          delete-branch: true
+          commit-message: 'chore: sync SlimefunGuguProject upstream'
+          title: 'Sync latest SlimefunGuguProject updates'
+          body: |
+            Automated sync from `SlimefunGuguProject/Slimefun4` master.
+
+            The Albion English patch was reapplied, the English-only guard passed,
+            and the Gradle build completed. Review this pull request before merging.
