@@ -1,0 +1,22 @@
+name: English text issue
+description: Report Chinese text, mistranslation, or unclear player-facing wording
+title: '[English]: '
+labels: [translation]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Where does the text appear?
+      placeholder: Item name, guide page, command, console, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current text or screenshot
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Suggested English wording

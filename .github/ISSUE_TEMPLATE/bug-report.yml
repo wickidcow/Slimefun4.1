@@ -1,0 +1,38 @@
+name: Bug report
+description: Report a problem in the English-Albion fork
+title: '[Bug]: '
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Please include the exact server version, full startup log, and reproduction steps.
+  - type: input
+    id: server
+    attributes:
+      label: Paper/server version
+      placeholder: Paper 26.2 build ...
+    validations:
+      required: true
+  - type: input
+    id: build
+    attributes:
+      label: Slimefun build or commit
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      render: shell
