@@ -1,47 +1,52 @@
-# 贡献指南
+# Contributing
 
-在对 Slimefun 汉化版进行代码前，必须先阅读此贡献指南。
+This fork tracks `SlimefunGuguProject/Slimefun4` while maintaining an English-only
+player experience. Changes should preserve both goals.
 
-# 设置环境
+## Development setup
 
-我们提供了一个自动化格式检查系统，请使用 `./gradlew spotlessApply` 进行初始化。
+Use Java 21 and the included Gradle wrapper.
 
-本项目已经提供 `.editorconfig` 用于控制代码样式。如果你有自己的代码样式风格，请在对本仓库进行贡献前切换为当前仓库的风格配置。
+```bash
+chmod +x gradlew
+./gradlew spotlessApply
+python3 scripts/verify_english.py .
+./gradlew clean build --no-daemon
+```
 
-# 设置分支
+Use four-space indentation and run Spotless before opening a pull request.
 
-在开始你的贡献之前，请确认你的代码是基于 `dev` 分支进行的。
+## Player-facing text
 
-# 提交信息规范
+Do not add hard-coded Chinese text to Java string literals or the default configuration
+files. The English verification script scans these locations and fails the build when
+CJK text is found.
 
-本项目**强制使用** [约定式提交](https://www.conventionalcommits.org/zh-hans/v1.0.0/) 的提交信息规范。
+Optional translation packs may remain in `src/main/resources/languages/`; they are
+excluded from the English-only scan because per-player translations are disabled in
+this fork.
 
-> 简单来说, 你的提交信息需要包含以下内容:
-> 
-> <类型>[可选 范围]: <描述>
-> 
-> 例如一个添加了新功能的提交应为 feat(item): add new item to Slimefun
+## Commit messages
 
-如果你提交的代码中解决或处理了 Issue 中的问题，请你在主提交消息外显式声明。
+Conventional Commit prefixes are preferred, for example:
 
-> 如 resolves #114514, fix #114514 等
+```text
+fix(cargo): preserve output items when transfer is rejected
+trans(items): correct English talisman lore
+chore(upstream): sync Gugu changes
+```
 
-如果是修复请在主提交消息上声明，不必重复声明。
+## Upstream changes
 
-我们支持的类型前缀正则如下：`(feat(ure)?|fix|docs|style|refactor|ci|chore|perf|build|test|revert|trans)`
+Do not copy the English fork over a new upstream tree manually. Use
+`scripts/sync_upstream.sh` or the scheduled GitHub workflow so the maintained patch is
+applied and verified consistently.
 
-另外的, 如果是与翻译相关的提交，类型应为 trans。
+When the patch no longer applies:
 
-# 代码规范
-
-**!! 本项目使用 4 空格缩进 !!**
-
-请不要过度缩减代码长度, 空格少了 Slimefun 也不会因此跑得更快.
-
-我们使用了 Spotless 作为代码格式化工具，在提交前你**必须**使用 `./gradlew spotlessCheck spotlessApply` 来自动格式化你的代码，否则将会被格式检查器拦截 PR。
-
-# 提交代码类型
-
-你提交的代码可以是修复、新增内容和 API。
-
-下游代码现在支持提交 API 相关代码，开发者们可以通过 jitpack 依赖汉化版的 Slimefun。
+1. Start with a clean checkout of the newest Gugu source.
+2. Reapply the English and Albion changes manually.
+3. Run the verifier and full Gradle build.
+4. Regenerate `patches/albion-english.patch` with
+   `scripts/regenerate_patch.sh /path/to/clean/Slimefun4`.
+5. Review the resulting patch before committing it.
