@@ -166,19 +166,6 @@ public class SlimefunItem implements Placeable {
         this.recipeOutput = recipeOutput;
     }
 
-    /**
-     * Compatibility constructor retained for addons compiled against older Slimefun builds.
-     *
-     * @param itemGroup
-     *            The {@link ItemGroup} this {@link SlimefunItem} belongs to
-     * @param item
-     *            The {@link SlimefunItemStack} that describes this {@link SlimefunItem}
-     */
-    @ParametersAreNonnullByDefault
-    public SlimefunItem(ItemGroup itemGroup, SlimefunItemStack item) {
-        this(itemGroup, item, RecipeType.NULL, new ItemStack[0]);
-    }
-
     // Previously deprecated constructor, now only for internal purposes
     @ParametersAreNonnullByDefault
     protected SlimefunItem(ItemGroup itemGroup, ItemStack item, String id, RecipeType recipeType, ItemStack[] recipe) {
@@ -1270,17 +1257,6 @@ public class SlimefunItem implements Placeable {
      */
     public static @Nonnull Optional<SlimefunItem> getOptionalById(@Nonnull String id) {
         return Optional.ofNullable(getById(id));
-    }
-
-    /**
-     * Compatibility overload retained for addons compiled against older Slimefun builds.
-     *
-     * @param item
-     *            The {@link SlimefunItemStack} to check
-     * @return The associated {@link SlimefunItem}, or null when the stack is null or unregistered
-     */
-    public static @Nullable SlimefunItem getByItem(@Nullable SlimefunItemStack item) {
-        return item == null ? null : getById(item.getItemId());
     }
 
     /**

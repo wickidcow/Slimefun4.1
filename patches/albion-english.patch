@@ -872,30 +872,10 @@ index 9d3199d..04a1b06 100644
                      + "\"");
              // @formatter:on
 diff --git a/src/main/java/io/github/thebusybiscuit/slimefun4/api/items/SlimefunItem.java b/src/main/java/io/github/thebusybiscuit/slimefun4/api/items/SlimefunItem.java
-index 62bac55..240e57f 100644
+index 62bac55..a7eebd4 100644
 --- a/src/main/java/io/github/thebusybiscuit/slimefun4/api/items/SlimefunItem.java
 +++ b/src/main/java/io/github/thebusybiscuit/slimefun4/api/items/SlimefunItem.java
-@@ -166,6 +166,19 @@ public class SlimefunItem implements Placeable {
-         this.recipeOutput = recipeOutput;
-     }
- 
-+    /**
-+     * Compatibility constructor retained for addons compiled against older Slimefun builds.
-+     *
-+     * @param itemGroup
-+     *            The {@link ItemGroup} this {@link SlimefunItem} belongs to
-+     * @param item
-+     *            The {@link SlimefunItemStack} that describes this {@link SlimefunItem}
-+     */
-+    @ParametersAreNonnullByDefault
-+    public SlimefunItem(ItemGroup itemGroup, SlimefunItemStack item) {
-+        this(itemGroup, item, RecipeType.NULL, new ItemStack[0]);
-+    }
-+
-     // Previously deprecated constructor, now only for internal purposes
-     @ParametersAreNonnullByDefault
-     protected SlimefunItem(ItemGroup itemGroup, ItemStack item, String id, RecipeType recipeType, ItemStack[] recipe) {
-@@ -937,7 +950,7 @@ public class SlimefunItem implements Placeable {
+@@ -937,7 +937,7 @@ public class SlimefunItem implements Placeable {
          Validate.notNull(page, "Wiki page cannot be null.");
  
          if (addon == null) {
@@ -904,24 +884,6 @@ index 62bac55..240e57f 100644
              return;
          }
          if (addon.getWikiURL() != null) {
-@@ -1259,6 +1272,17 @@ public class SlimefunItem implements Placeable {
-         return Optional.ofNullable(getById(id));
-     }
- 
-+    /**
-+     * Compatibility overload retained for addons compiled against older Slimefun builds.
-+     *
-+     * @param item
-+     *            The {@link SlimefunItemStack} to check
-+     * @return The associated {@link SlimefunItem}, or null when the stack is null or unregistered
-+     */
-+    public static @Nullable SlimefunItem getByItem(@Nullable SlimefunItemStack item) {
-+        return item == null ? null : getById(item.getItemId());
-+    }
-+
-     /**
-      * Retrieve a {@link SlimefunItem} from an {@link ItemStack}.
-      *
 diff --git a/src/main/java/io/github/thebusybiscuit/slimefun4/api/player/PlayerBackpack.java b/src/main/java/io/github/thebusybiscuit/slimefun4/api/player/PlayerBackpack.java
 index 43e6844..f496099 100644
 --- a/src/main/java/io/github/thebusybiscuit/slimefun4/api/player/PlayerBackpack.java
@@ -6827,45 +6789,6 @@ index 43a2308..80dc6f2 100644
  
          meta.setLore(lore);
  
-diff --git a/src/main/java/me/mrCookieSlime/Slimefun/Objects/SlimefunItem/abstractItems/MachineFuel.java b/src/main/java/me/mrCookieSlime/Slimefun/Objects/SlimefunItem/abstractItems/MachineFuel.java
-index c613b55..b864e54 100644
---- a/src/main/java/me/mrCookieSlime/Slimefun/Objects/SlimefunItem/abstractItems/MachineFuel.java
-+++ b/src/main/java/me/mrCookieSlime/Slimefun/Objects/SlimefunItem/abstractItems/MachineFuel.java
-@@ -1,5 +1,6 @@
- package me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems;
- 
-+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
- import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
- import io.github.thebusybiscuit.slimefun4.utils.itemstack.ItemStackWrapper;
- import java.util.function.Predicate;
-@@ -30,6 +31,27 @@ public class MachineFuel implements Predicate<ItemStack> {
-         this.output = output;
-     }
- 
-+    /**
-+     * Legacy constructor retained for binary compatibility with older Slimefun addons.
-+     *
-+     * @param seconds how long this fuel lasts
-+     * @param fuel the Slimefun fuel item
-+     */
-+    public MachineFuel(int seconds, SlimefunItemStack fuel) {
-+        this(seconds, fuel.item(), null);
-+    }
-+
-+    /**
-+     * Legacy constructor retained for binary compatibility with older Slimefun addons.
-+     *
-+     * @param seconds how long this fuel lasts
-+     * @param fuel the Slimefun fuel item
-+     * @param output the optional remaining item
-+     */
-+    public MachineFuel(int seconds, SlimefunItemStack fuel, SlimefunItemStack output) {
-+        this(seconds, fuel.item(), output == null ? null : output.item());
-+    }
-+
-     public ItemStack getInput() {
-         return fuel;
-     }
 diff --git a/src/main/java/net/guizhanss/slimefun4/utils/WikiUtils.java b/src/main/java/net/guizhanss/slimefun4/utils/WikiUtils.java
 index f9ba693..dd069d8 100644
 --- a/src/main/java/net/guizhanss/slimefun4/utils/WikiUtils.java
