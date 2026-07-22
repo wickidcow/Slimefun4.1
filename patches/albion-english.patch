@@ -6827,6 +6827,45 @@ index 43a2308..80dc6f2 100644
  
          meta.setLore(lore);
  
+diff --git a/src/main/java/me/mrCookieSlime/Slimefun/Objects/SlimefunItem/abstractItems/MachineFuel.java b/src/main/java/me/mrCookieSlime/Slimefun/Objects/SlimefunItem/abstractItems/MachineFuel.java
+index c613b55..b864e54 100644
+--- a/src/main/java/me/mrCookieSlime/Slimefun/Objects/SlimefunItem/abstractItems/MachineFuel.java
++++ b/src/main/java/me/mrCookieSlime/Slimefun/Objects/SlimefunItem/abstractItems/MachineFuel.java
+@@ -1,5 +1,6 @@
+ package me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems;
+ 
++import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+ import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
+ import io.github.thebusybiscuit.slimefun4.utils.itemstack.ItemStackWrapper;
+ import java.util.function.Predicate;
+@@ -30,6 +31,27 @@ public class MachineFuel implements Predicate<ItemStack> {
+         this.output = output;
+     }
+ 
++    /**
++     * Legacy constructor retained for binary compatibility with older Slimefun addons.
++     *
++     * @param seconds how long this fuel lasts
++     * @param fuel the Slimefun fuel item
++     */
++    public MachineFuel(int seconds, SlimefunItemStack fuel) {
++        this(seconds, fuel.item(), null);
++    }
++
++    /**
++     * Legacy constructor retained for binary compatibility with older Slimefun addons.
++     *
++     * @param seconds how long this fuel lasts
++     * @param fuel the Slimefun fuel item
++     * @param output the optional remaining item
++     */
++    public MachineFuel(int seconds, SlimefunItemStack fuel, SlimefunItemStack output) {
++        this(seconds, fuel.item(), output == null ? null : output.item());
++    }
++
+     public ItemStack getInput() {
+         return fuel;
+     }
 diff --git a/src/main/java/net/guizhanss/slimefun4/utils/WikiUtils.java b/src/main/java/net/guizhanss/slimefun4/utils/WikiUtils.java
 index f9ba693..dd069d8 100644
 --- a/src/main/java/net/guizhanss/slimefun4/utils/WikiUtils.java

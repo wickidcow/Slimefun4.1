@@ -1,5 +1,6 @@
 package me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems;
 
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import io.github.thebusybiscuit.slimefun4.utils.itemstack.ItemStackWrapper;
 import java.util.function.Predicate;
@@ -28,6 +29,27 @@ public class MachineFuel implements Predicate<ItemStack> {
         this.fuel = fuel;
         this.wrapper = ItemStackWrapper.wrap(fuel);
         this.output = output;
+    }
+
+    /**
+     * Legacy constructor retained for binary compatibility with older Slimefun addons.
+     *
+     * @param seconds how long this fuel lasts
+     * @param fuel the Slimefun fuel item
+     */
+    public MachineFuel(int seconds, SlimefunItemStack fuel) {
+        this(seconds, fuel.item(), null);
+    }
+
+    /**
+     * Legacy constructor retained for binary compatibility with older Slimefun addons.
+     *
+     * @param seconds how long this fuel lasts
+     * @param fuel the Slimefun fuel item
+     * @param output the optional remaining item
+     */
+    public MachineFuel(int seconds, SlimefunItemStack fuel, SlimefunItemStack output) {
+        this(seconds, fuel.item(), output == null ? null : output.item());
     }
 
     public ItemStack getInput() {
