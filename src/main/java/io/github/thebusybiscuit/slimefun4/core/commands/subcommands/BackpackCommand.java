@@ -52,7 +52,7 @@ class BackpackCommand extends SubCommand {
                                     sender,
                                     "messages.usage",
                                     true,
-                                    msg -> msg.replace("%usage%", "/sf backpack (玩家名)"));
+                                    msg -> msg.replace("%usage%", "/sf backpack (player name)"));
                     return;
                 }
 
@@ -119,7 +119,7 @@ class BackpackCommand extends SubCommand {
     }
 
     private void showBackpackMenu(OfflinePlayer owner, Player p, Set<PlayerBackpack> result, int page) {
-        var menu = new ChestMenu(owner.getName() + " 拥有的背包列表");
+        var menu = new ChestMenu(owner.getName() + "'s Backpack List");
         menu.setEmptySlotsClickable(false);
 
         var pages = result.size() / 36;
@@ -142,10 +142,10 @@ class BackpackCommand extends SubCommand {
 
             var visualBackpack = SlimefunItems.RESTORED_BACKPACK.clone();
             var im = visualBackpack.getItemMeta();
-            im.setDisplayName(bp.getName().isEmpty() ? "背包 #" + bp.getId() : bp.getName());
+            im.setDisplayName(bp.getName().isEmpty() ? "Backpack #" + bp.getId() : bp.getName());
             var lore = new ArrayList<String>();
             lore.add("");
-            lore.add(ChatColor.translateAlternateColorCodes('&', "&a左键 获取此背包"));
+            lore.add(ChatColor.translateAlternateColorCodes('&', "&aLeft click to retrieve this backpack"));
             im.setLore(lore);
             visualBackpack.setItemMeta(im);
 

@@ -58,7 +58,7 @@ public class SlimefunDatabaseManager {
             var connectionPoolSize = getConnectionPoolSize(blockDataStorageType, blockStorageConfig);
 
             if (readExecutorThread + writeExecutorThread > connectionPoolSize) {
-                plugin.getLogger().log(Level.WARNING, "检测到 block-storage 连接池大小配置小于读写线程总和, 可能会导致性能问题");
+                plugin.getLogger().log(Level.WARNING, "Detected that the block‑storage connection pool size is configured smaller than the total number of read/write threads, which may lead to performance issues.");
             }
 
             initAdapter(blockDataStorageType, DataType.BLOCK_STORAGE, blockStorageConfig);
@@ -68,14 +68,14 @@ public class SlimefunDatabaseManager {
             blockDataController.init(blockStorageAdapter, readExecutorThread, writeExecutorThread);
 
             if (blockStorageConfig.getBoolean("delayedWriting.enable")) {
-                plugin.getLogger().log(Level.INFO, "已启用延时写入功能");
+                plugin.getLogger().log(Level.INFO, "Enabled delayed write functionality");
                 blockDataController.initDelayedSaving(
                         plugin,
                         blockStorageConfig.getInt("delayedWriting.delayedSecond"),
                         blockStorageConfig.getInt("delayedWriting.forceSavePeriod"));
             }
         } catch (IOException e) {
-            plugin.getLogger().log(Level.SEVERE, "加载 Slimefun 方块存储适配器失败", e);
+            plugin.getLogger().log(Level.SEVERE, "Failed to load Slimefun block storage adapter", e);
             return;
         }
 
@@ -87,14 +87,14 @@ public class SlimefunDatabaseManager {
             var connectionPoolSize = getConnectionPoolSize(profileStorageType, profileConfig);
 
             if (readExecutorThread + writeExecutorThread > connectionPoolSize) {
-                plugin.getLogger().log(Level.WARNING, "检测到 profile-storage 连接池大小配置小于读写线程总和, 可能会导致性能问题");
+                plugin.getLogger().log(Level.WARNING, "Detected that the profile‑storage connection pool size is configured smaller than the total number of read/write threads, which may lead to performance issues.");
             }
 
             initAdapter(profileStorageType, DataType.PLAYER_PROFILE, profileConfig);
             var profileController = ControllerHolder.createController(ProfileDataController.class, profileStorageType);
             profileController.init(profileAdapter, readExecutorThread, writeExecutorThread);
         } catch (IOException e) {
-            plugin.getLogger().log(Level.SEVERE, "加载玩家档案适配器失败", e);
+            plugin.getLogger().log(Level.SEVERE, "Failed to load player profile adapter", e);
         }
     }
 
