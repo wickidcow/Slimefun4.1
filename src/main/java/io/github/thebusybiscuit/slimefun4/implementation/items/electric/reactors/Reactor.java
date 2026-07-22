@@ -159,13 +159,13 @@ public abstract class Reactor extends AbstractEnergyProvider
                         4,
                         new CustomItemStack(
                                 SlimefunItems.NUCLEAR_REACTOR,
-                                "&7模式: &e发电",
+                                "&7Mode: &eGenerator",
                                 "",
-                                "&6反应堆将会专注于发电",
-                                "&6如果能源网络中没有机器需要电力",
-                                "&6它会停止工作",
+                                "&6Reactor will focus on power generation",
+                                "&6If no machines in the energy network",
+                                "&6require power, it will stop working",
                                 "",
-                                "&7\u21E8 单击修改模式为 &e生产"));
+                                "&7\u21E8 Click to change mode to &eProduction"));
                 menu.addMenuClickHandler(4, (p, slot, item, action) -> {
                     StorageCacheUtils.setData(b.getLocation(), MODE, ReactorMode.PRODUCTION.toString());
                     updateInventory(menu, b);
@@ -177,13 +177,13 @@ public abstract class Reactor extends AbstractEnergyProvider
                         4,
                         new CustomItemStack(
                                 SlimefunItems.PLUTONIUM,
-                                "&7模式: &e生产",
+                                "&7Mode: &eProduction",
                                 "",
-                                "&6反应堆将会专注于生产副产物",
-                                "&6如果能源网络中没有机器需要电力",
-                                "&6它会继续工作并且不发电",
+                                "&6Reactor will focus on producing byproducts",
+                                "&6If no machines in the energy network",
+                                "&6require power, it will continue working without generating power",
                                 "",
-                                "&7\u21E8 单击修改模式为 &e发电"));
+                                "&7\u21E8 Click to change mode to &eGenerator"));
                 menu.addMenuClickHandler(4, (p, slot, item, action) -> {
                     StorageCacheUtils.setData(b.getLocation(), MODE, ReactorMode.GENERATOR.toString());
                     updateInventory(menu, b);
@@ -198,7 +198,7 @@ public abstract class Reactor extends AbstractEnergyProvider
 
         if (port != null) {
             menu.replaceExistingItem(
-                    INFO_SLOT, new CustomItemStack(Material.GREEN_WOOL, "&7访问接口", "", "&6已连接", "", "&7> 单击查看访问接口"));
+                    INFO_SLOT, new CustomItemStack(Material.GREEN_WOOL, "&7Access Port", "", "&6Connected", "", "&7> Click to view access port"));
             menu.addMenuClickHandler(INFO_SLOT, (p, slot, item, action) -> {
                 port.open(p);
                 updateInventory(menu, b);
@@ -208,7 +208,7 @@ public abstract class Reactor extends AbstractEnergyProvider
         } else {
             menu.replaceExistingItem(
                     INFO_SLOT,
-                    new CustomItemStack(Material.RED_WOOL, "&7访问接口", "", "&c未连接", "", "&7接口必须要放置在", "&7反应堆上面的第三格!"));
+                    new CustomItemStack(Material.RED_WOOL, "&7Access Port", "", "&cNot Connected", "", "&7The port must be placed", "&73 blocks above the reactor!"));
             menu.addMenuClickHandler(INFO_SLOT, (p, slot, item, action) -> {
                 updateInventory(menu, b);
                 menu.open(p);
@@ -242,17 +242,17 @@ public abstract class Reactor extends AbstractEnergyProvider
         if (this instanceof NuclearReactor) {
             preset.addItem(
                     1,
-                    new CustomItemStack(getFuelIcon(), "&7燃料", "", "&f这里可以放入放射性燃料:", "&2铀 &f或 &a镎"),
+                    new CustomItemStack(getFuelIcon(), "&7Fuel Slot", "", "&fThis Slot accepts radioactive Fuel such as:", "&2Uranium &for &aNeptunium"),
                     ChestMenuUtils.getEmptyClickHandler());
         } else if (this instanceof NetherStarReactor) {
             preset.addItem(
                     1,
-                    new CustomItemStack(getFuelIcon(), "&7燃料", "", "&f这里可以放入燃料:", "&b下界之星"),
+                    new CustomItemStack(getFuelIcon(), "&7Fuel Slot", "", "&fPlace fuel here:", "&bNether Star"),
                     ChestMenuUtils.getEmptyClickHandler());
         } else {
             preset.addItem(
                     1,
-                    new CustomItemStack(getFuelIcon(), "&7燃料", "", "&f这里可以放入放射性燃料:", "&2铀 &f或 &a镎"),
+                    new CustomItemStack(getFuelIcon(), "&7Fuel Slot", "", "&fThis Slot accepts radioactive Fuel such as:", "&2Uranium &for &aNeptunium"),
                     ChestMenuUtils.getEmptyClickHandler());
         }
 
@@ -265,13 +265,13 @@ public abstract class Reactor extends AbstractEnergyProvider
 
         if (needsCooling()) {
             preset.addItem(
-                    7, new CustomItemStack(getCoolant(), "&b冷却剂", "", "&f在此处放入冷却剂", "&4没有了冷却剂, 你的反应堆", "&4将会瞬间爆炸"));
+                    7, new CustomItemStack(getCoolant(), "&bCoolant Slot", "", "&fPlace Coolant here", "&4Without Coolant, your reactor", "&4will explode instantly"));
         } else {
-            preset.addItem(7, new CustomItemStack(Material.BARRIER, "&b冷却剂", "", "&f在此处放入冷却剂"));
+            preset.addItem(7, new CustomItemStack(Material.BARRIER, "&bCoolant", "", "&fPlace Coolant here"));
 
             for (int i : border_4) {
                 preset.addItem(
-                        i, new CustomItemStack(Material.BARRIER, "&c无需冷却剂"), ChestMenuUtils.getEmptyClickHandler());
+                        i, new CustomItemStack(Material.BARRIER, "&cNo Coolant required"), ChestMenuUtils.getEmptyClickHandler());
             }
         }
     }
