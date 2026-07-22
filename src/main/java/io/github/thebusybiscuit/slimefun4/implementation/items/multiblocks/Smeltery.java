@@ -56,7 +56,7 @@ public class Smeltery extends AbstractSmeltery {
                     new ItemStack(Material.NETHER_BRICK_FENCE),
                     null,
                     new ItemStack(Material.NETHER_BRICKS),
-                    new CustomItemStack(Material.DISPENSER, "发射器 (朝上)"),
+                    new CustomItemStack(Material.DISPENSER, "Dispenser (Facing Up)"),
                     new ItemStack(Material.NETHER_BRICKS),
                     null,
                     new ItemStack(Material.FLINT_AND_STEEL),

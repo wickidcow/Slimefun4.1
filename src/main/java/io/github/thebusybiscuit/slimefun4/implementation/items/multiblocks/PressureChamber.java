@@ -33,7 +33,7 @@ public class PressureChamber extends MultiBlockMachine {
                 item,
                 new ItemStack[] {
                     new ItemStack(Material.SMOOTH_STONE_SLAB),
-                    new CustomItemStack(Material.DISPENSER, "发射器 (朝下)"),
+                    new CustomItemStack(Material.DISPENSER, "Dispenser (Facing Down)"),
                     new ItemStack(Material.SMOOTH_STONE_SLAB),
                     new ItemStack(Material.PISTON),
                     new ItemStack(Material.GLASS),

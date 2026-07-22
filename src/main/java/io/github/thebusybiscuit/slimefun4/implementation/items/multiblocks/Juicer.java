@@ -50,7 +50,7 @@ public class Juicer extends MultiBlockMachine {
                     new ItemStack(Material.NETHER_BRICK_FENCE),
                     null,
                     null,
-                    new CustomItemStack(Material.DISPENSER, "发射器 (朝上)"),
+                    new CustomItemStack(Material.DISPENSER, "Dispenser (Facing Up)"),
                     null
                 },
                 BlockFace.SELF);
