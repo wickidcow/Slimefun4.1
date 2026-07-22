@@ -57,10 +57,10 @@ public abstract class AbstractMonsterSpawner extends SlimefunItem implements Dis
         for (String line : meta.getLore()) {
             String stripColor = ChatColor.stripColor(line);
 
-            if ((stripColor.startsWith("类型: ") || stripColor.startsWith("Type:"))
-                    && (!line.contains("<类型>") || line.contains("<Type>"))) {
+            if ((stripColor.startsWith("type: ") || stripColor.startsWith("Type:"))
+                    && (!line.contains("<type>") || line.contains("<Type>"))) {
                 EntityType type = EntityType.valueOf(ChatColor.stripColor(line)
-                        .replace("类型: ", "")
+                        .replace("type: ", "")
                         .replace("Type: ", "")
                         .replace(' ', '_')
                         .toUpperCase(Locale.ROOT));
@@ -112,9 +112,9 @@ public abstract class AbstractMonsterSpawner extends SlimefunItem implements Dis
 
         for (int i = 0; i < lore.size(); i++) {
             String currentLine = lore.get(i);
-            if (currentLine.contains("<Type>") || currentLine.contains("<类型>")) {
-                String typeName = type == null ? "空" : ChatUtils.humanize(type.name());
-                lore.set(i, currentLine.replace("<Type>", typeName).replace("<类型>", typeName));
+            if (currentLine.contains("<Type>") || currentLine.contains("<type>")) {
+                String typeName = type == null ? "None" : ChatUtils.humanize(type.name());
+                lore.set(i, currentLine.replace("<Type>", typeName).replace("<type>", typeName));
                 break;
             }
         }
