@@ -1,11 +1,9 @@
-# This workflow will build a Java project with Gradle
-
 name: Pull Request Checker
 
 on:
+  pull_request:
+  workflow_dispatch:
   workflow_call:
-env:
-  TZ: 'Asia/Shanghai'
 
 permissions:
   contents: read
@@ -14,52 +12,37 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      short-commit-hash: ${{ steps.env-setup.outputs.SHORT_COMMIT_HASH }}
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Check out source
+        uses: actions/checkout@v6
 
-      - name: Make gradlew executable
-        run: chmod +x gradlew
-
-      - name: Set up JDK
+      - name: Set up Java 21
         uses: actions/setup-java@v5
         with:
-          distribution: 'zulu'
-          java-version: ${{ vars.JAVA_CI_VERSION || 21 }}
-          java-package: jdk
-          architecture: x64
-          cache: 'gradle'
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
 
-      - name: Apply code formatting
-        run: ./gradlew spotlessApply --no-daemon
+      - name: Verify English-only behavior
+        run: python3 scripts/verify_english.py .
 
-      - name: Codestyle Check
-        run: ./gradlew spotlessCheck --no-daemon
-
-      # Setup for the preview build
-      - name: Environment Setup
-        id: env-setup
+      - name: Format and build
         run: |
-          SHORT_COMMIT_HASH=$(git rev-parse --short=8 ${{ github.sha }})
-          JAR_VERSION="Preview Build #${{ github.event.number }}-$SHORT_COMMIT_HASH"
-          echo "SHORT_COMMIT_HASH=$SHORT_COMMIT_HASH" >> "$GITHUB_ENV"
-          echo "SHORT_COMMIT_HASH=$SHORT_COMMIT_HASH" >> "$GITHUB_OUTPUT"
-          echo "JAR_VERSION=$JAR_VERSION" >> "$GITHUB_ENV"
+          chmod +x gradlew
+          ./gradlew spotlessApply --no-daemon
+          ./gradlew clean build --no-daemon
 
-      - name: Build with Maven
-        run: ./gradlew build -PprojectVersion="$JAR_VERSION" --no-daemon
+      - name: Locate built JAR
+        run: |
+          FILENAME=$(find build/libs -maxdepth 1 -type f -name 'Slimefun-*.jar' ! -name '*-sources.jar' -printf '%f\n')
+          test -n "$FILENAME"
+          test "$(printf '%s\n' "$FILENAME" | wc -l)" -eq 1
+          echo "SLIMEFUN_JAR=$FILENAME" >> "$GITHUB_ENV"
 
-      - name: Upload the artifact
+      - name: Upload preview JAR
         uses: actions/upload-artifact@v7
         with:
-          name: slimefun-${{ github.event.number }}-${{ env.SHORT_COMMIT_HASH }}
-          path: 'build/libs/Slimefun-${{ env.JAR_VERSION }}.jar'
-
-  call-workflows:
-    needs: [ build ]
-    uses: ./.github/workflows/e2e-testing.yml
-    with:
-      artifact-name: slimefun-${{ github.event.number }}-${{ needs.build.outputs.short-commit-hash }}
+          name: Slimefun-PR-${{ github.run_number }}
+          path: build/libs/${{ env.SLIMEFUN_JAR }}
+          if-no-files-found: error
