@@ -260,9 +260,18 @@ public class TickerTask implements Runnable {
             Slimefun.logger().log(Level.SEVERE, "X: {0} Y: {1} Z: {2} ({3})", new Object[] {
                 l.getBlockX(), l.getBlockY(), l.getBlockZ(), item.getId()
             });
-            Slimefun.logger().log(Level.SEVERE, "Multiple errors occurred in the past 4 ticks, the machine at this block has been disabled.");
-            Slimefun.logger().log(Level.SEVERE, "Please check the error details in the /plugins/Slimefun/error-reports/ folder.");
-            Slimefun.logger().log(Level.SEVERE, "If you want to report this error, send the above error report file to others, not a screenshot of this window.");
+            Slimefun.logger()
+                    .log(
+                            Level.SEVERE,
+                            "Multiple errors occurred in the past 4 ticks, the machine at this block has been disabled.");
+            Slimefun.logger()
+                    .log(
+                            Level.SEVERE,
+                            "Please check the error details in the /plugins/Slimefun/error-reports/ folder.");
+            Slimefun.logger()
+                    .log(
+                            Level.SEVERE,
+                            "If you want to report this error, send the above error report file to others, not a screenshot of this window.");
             Slimefun.logger().log(Level.SEVERE, " ");
             bugs.remove(position);
 
