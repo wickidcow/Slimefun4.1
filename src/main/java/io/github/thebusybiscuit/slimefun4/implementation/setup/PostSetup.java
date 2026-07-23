@@ -87,7 +87,8 @@ public final class PostSetup {
 
         sender.sendMessage("");
         sender.sendMessage(ChatColor.GREEN + " - Source:       https://github.com/SlimefunGuguProject/Slimefun4");
-        sender.sendMessage(ChatColor.GREEN + " - Bug Reports:  https://github.com/SlimefunGuguProject/Slimefun4/issues");
+        sender.sendMessage(
+                ChatColor.GREEN + " - Bug Reports:  https://github.com/SlimefunGuguProject/Slimefun4/issues");
 
         sender.sendMessage("");
 
